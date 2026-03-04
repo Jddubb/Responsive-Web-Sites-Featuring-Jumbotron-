@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexus Technologies</title>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-glow: rgba(99, 102, 241, 0.4);
+            --secondary: #ec4899;
+            --dark-bg: #0f172a;
+            --glass-bg: rgba(30, 41, 59, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--dark-bg);
+            color: #f8fafc;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Animated Background Elements */
+        .bg-animated {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: -2;
+            background: linear-gradient(125deg, #0f172a, #1e1b4b, #2e1065, #0f172a);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+        }
+
+        @keyframes gradientBG {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .bg-mesh {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: -1;
+            background-image:
+                radial-gradient(circle at 15% 50%, rgba(99, 102, 241, 0.25), transparent 50%),
+                radial-gradient(circle at 85% 30%, rgba(236, 72, 153, 0.25), transparent 50%);
+            animation: meshFloat 20s ease-in-out infinite alternate;
+        }
+
+        @keyframes meshFloat {
+            0% {
+                transform: scale(1) translateY(0);
+                opacity: 0.8;
+            }
+
+            50% {
+                transform: scale(1.1) translateY(-20px);
+                opacity: 1;
+            }
+
+            100% {
+                transform: scale(0.9) translateY(20px);
+                opacity: 0.8;
+            }
+        }
+
+        /* Glassmorphism utility */
+        .glass-panel {
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+            border-radius: 1.25rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Floating Animation */
+        .float-obj {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-20px);
+            }
+
+            100% {
+                transform: translateY(0px);
+            }
+        }
+
+        /* Custom Nav */
+        .navbar-glass {
+            background: rgba(15, 23, 42, 0.8) !important;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar-brand {
+            font-size: 1.5rem;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-link {
+            cursor: pointer;
+            font-weight: 500;
+            color: #cbd5e1 !important;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 50%;
+            background-color: var(--primary);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 80%;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: #fff !important;
+            text-shadow: 0 0 10px var(--primary-glow);
+        }
+
+        /* Page Routing Animations */
+        .page-section {
+            display: none;
+        }
+
+        .page-section.active {
+            display: block;
+            animation: fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Jumbotron custom */
+        .hero-banner {
+            padding: 8rem 2rem;
+            border-radius: 2rem;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.95));
+        }
+
+        .hero-banner::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            bottom: -50%;
+            left: -50%;
+            background: linear-gradient(to bottom right, rgba(99, 102, 241, 0.15), rgba(236, 72, 153, 0.15));
+            z-index: 0;
+            transform: rotate(-15deg);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .btn-gradient {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border: none;
+            color: white;
+            font-weight: 600;
+            box-shadow: 0 4px 15px var(--primary-glow);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-gradient::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: all 0.5s;
+        }
+
+        .btn-gradient:hover::after {
+            left: 100%;
+        }
+
+        .btn-gradient:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 8px 25px rgba(236, 72, 153, 0.5);
+            color: white;
+        }
+
+        /* Cards */
+        .feature-card {
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            height: 100%;
+            border: 1px solid var(--glass-border);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at center, rgba(255, 255, 255, 0.05) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            pointer-events: none;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(99, 102, 241, 0.5);
+            box-shadow: 0 15px 35px -5px rgba(0, 0, 0, 0.4), 0 0 20px rgba(99, 102, 241, 0.2);
+        }
+
+        .feature-card:hover::before {
+            opacity: 1;
+        }
+
+        .icon-box {
+            width: 60px;
+            height: 60px;
+            border-radius: 16px;
+            background: rgba(99, 102, 241, 0.2);
+            color: #818cf8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.75rem;
+            margin-bottom: 1.25rem;
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover .icon-box {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        /* Form Controls */
+        .form-control,
+        .form-select {
+            background-color: rgba(15, 23, 42, 0.6);
+            border: 1px solid var(--glass-border);
+            color: #f8fafc;
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+            background-color: rgba(15, 23, 42, 0.9);
+            border-color: var(--primary);
+            box-shadow: 0 0 0 0.25rem rgba(99, 102, 241, 0.25);
+            color: #f8fafc;
+        }
+
+        .form-control::placeholder {
+            color: #64748b;
+        }
+
+        .input-group-text {
+            background-color: rgba(30, 41, 59, 0.8);
+            border: 1px solid var(--glass-border);
+            color: #94a3b8;
+            padding: 0.75rem 1rem;
+        }
+
+        /* Interactive text highlighting */
+        .text-gradient {
+            background: -webkit-linear-gradient(45deg, #818cf8, #f472b6);
+            background: linear-gradient(45deg, #818cf8, #f472b6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            color: transparent;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="bg-animated"></div>
+    <div class="bg-mesh"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-glass sticky-top py-3">
+        <div class="container">
+            <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="#" onclick="navigate('home')">
+                <i class="bi bi-hexagon-fill text-primary"></i>
+                NEXUS
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto gap-2">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-target="home" onclick="navigate('home')">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-target="product" onclick="navigate('product')">Product</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-target="detail" onclick="navigate('detail')">Details</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-target="checkout" onclick="navigate('checkout')">Checkout</a>
+                    </li>
+                    <li class="nav-item ms-lg-2">
+                        <a class="btn btn-outline-light rounded-pill px-4" data-target="login"
+                            onclick="navigate('login')">Login</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <main class="container py-5">
+
+        <!-- =======================
+             HOMEPAGE (Jumbotron)
+             ======================= -->
+        <section id="home" class="page-section active">
+            <!-- Hero -->
+            <div class="glass-panel hero-banner text-center text-lg-start mb-5">
+                <div class="hero-content row align-items-center">
+                    <div class="col-lg-6 mb-5 mb-lg-0">
+                        <div
+                            class="badge bg-primary bg-opacity-25 text-primary rounded-pill px-3 py-2 mb-3 shadow-sm border border-primary border-opacity-25">
+                            <i class="bi bi-stars me-1 text-gradient"></i> <span class="text-white fw-medium">Nexus v2.0
+                                Release</span>
+                        </div>
+                        <h1 class="display-3 fw-bold mb-4">Build for the <br><span class="text-gradient">Future</span>
+                        </h1>
+                        <p class="lead text-secondary mb-5" style="color: #cbd5e1 !important;">
+                            Experience a fully responsive, modern web interface. Seamlessly navigate between pages
+                            inside a single fluid application with premium aesthetics.
+                        </p>
+                        <div class="d-flex gap-3 justify-content-center justify-content-lg-start">
+                            <button class="btn btn-gradient btn-lg px-5 rounded-pill"
+                                onclick="navigate('product')">Explore</button>
+                            <button class="btn btn-outline-light btn-lg px-4 rounded-pill"
+                                onclick="navigate('detail')">Learn More</button>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 text-center float-obj">
+                        <i class="bi bi-globe-americas display-1"
+                            style="font-size: 15rem; background: -webkit-linear-gradient(#6366f1, #ec4899); background: linear-gradient(#6366f1, #ec4899); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent; opacity: 0.9; filter: drop-shadow(0 0 30px rgba(99,102,241,0.6));"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Trusted By Banner -->
+            <div class="text-center mb-5 opacity-75">
+                <p class="text-uppercase tracking-wider small fw-bolder text-muted mb-4" style="letter-spacing: 2px;">
+                    TRUSTED BY INNOVATIVE TEAMS WORLDWIDE</p>
+                <div class="d-flex justify-content-center align-items-center flex-wrap gap-4 gap-lg-5"
+                    style="filter: grayscale(100%) opacity(70%);">
+                    <h5 class="m-0 fw-bold"><i class="bi bi-meta text-primary"></i> MetaCorp</h5>
+                    <h5 class="m-0 fw-bold"><i class="bi bi-spotify text-success"></i> AudioStream</h5>
+                    <h5 class="m-0 fw-bold"><i class="bi bi-amazon text-warning"></i> PrimeNode</h5>
+                    <h5 class="m-0 fw-bold"><i class="bi bi-stripe text-info"></i> PayFlow</h5>
+                    <h5 class="m-0 fw-bold"><i class="bi bi-microsoft text-primary"></i> SoftData</h5>
+                </div>
+            </div>
+
+            <!-- Highlights / How it works -->
+            <div class="row g-4 mt-5 mb-5">
+                <div class="col-12 text-center mb-4">
+                    <h2 class="fw-bold mb-2">Why Choose <span class="text-gradient">Nexus?</span></h2>
+                    <p class="text-muted">The complete toolkit for modern web applications.</p>
+                </div>
+                <!-- Highlight Cards -->
+                <div class="col-md-4">
+                    <div class="glass-panel p-4 h-100 text-center feature-card">
+                        <div class="icon-box mx-auto mb-3" style="background: rgba(99,102,241,0.2); color: #818cf8;"><i
+                                class="bi bi-rocket-takeoff-fill"></i></div>
+                        <h5 class="fw-bold">Deploy Faster</h5>
+                        <p class="text-muted small">Go from idea to production in minutes with our intuitive toolchain
+                            tailored for speed.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="glass-panel p-4 h-100 text-center feature-card">
+                        <div class="icon-box mx-auto mb-3" style="background: rgba(236,72,153,0.2); color: #f472b6;"><i
+                                class="bi bi-heart-pulse-fill"></i></div>
+                        <h5 class="fw-bold">Reliable Core</h5>
+                        <p class="text-muted small">Enjoy 99.99% uptime with our globally distributed edge network and
+                            self-healing systems.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="glass-panel p-4 h-100 text-center feature-card">
+                        <div class="icon-box mx-auto mb-3" style="background: rgba(16,185,129,0.2); color: #34d399;"><i
+                                class="bi bi-cash-coin"></i></div>
+                        <h5 class="fw-bold">Scale Smart</h5>
+                        <p class="text-muted small">Pay only for what you use. Seamlessly scale up and down based on
+                            real-time traffic.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Call to action -->
+            <div class="glass-panel p-5 mt-5 text-center position-relative overflow-hidden"
+                style="border-color: rgba(99,102,241,0.5);">
+                <div class="position-absolute top-0 start-0 w-100 h-100"
+                    style="background: linear-gradient(45deg, rgba(99,102,241,0.1), rgba(236,72,153,0.1)); z-index: 0;">
+                </div>
+                <div class="position-relative z-index-1" style="z-index: 2;">
+                    <h2 class="fw-bold mb-3">Ready to transform your workflow?</h2>
+                    <p class="text-muted mb-4">Join over 10,000 developers building the future today.</p>
+                    <button class="btn btn-gradient btn-lg rounded-pill px-5" onclick="navigate('checkout')">Get Started
+                        Free</button>
+                    <p class="small text-muted mt-3 mb-0">No credit card required • 14-day free trial</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- =======================
+             PRODUCT PAGE
+             ======================= -->
+        <section id="product" class="page-section">
+            <div class="row align-items-center g-5">
+                <div class="col-lg-6">
+                    <div class="glass-panel p-5 text-center d-flex align-items-center justify-content-center"
+                        style="min-height: 500px; background: linear-gradient(45deg, rgba(30,41,59,0.8), rgba(15,23,42,0.9));">
+                        <i class="bi bi-cpu"
+                            style="font-size: 12rem; color: var(--primary); text-shadow: 0 0 30px var(--primary-glow);"></i>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="badge bg-success bg-opacity-25 text-success rounded-pill px-3 py-2 mb-3">In Stock</div>
+                    <h2 class="display-5 fw-bold mb-3">Nexus Core Processor</h2>
+                    <h3 class="text-primary mb-4">$499.00</h3>
+                    <p class="text-secondary mb-4" style="color: #94a3b8 !important;">
+                        The ultimate processor for next-gen workloads. Featuring 16 cores, 32 threads, and unprecedented
+                        speed. Seamless multi-tasking and AI-enabled operations out of the box.
+                    </p>
+                    <ul class="list-unstyled mb-5">
+                        <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i> 16 Core / 32 Thread
+                            Architecture</li>
+                        <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i> 5.2 GHz Boost Clock
+                        </li>
+                        <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i> 64MB Cache Memory
+                        </li>
+                    </ul>
+                    <div class="d-flex gap-3">
+                        <input type="number" class="form-control" value="1" min="1" style="width: 80px;">
+                        <button class="btn btn-gradient px-4 rounded-3 flex-grow-1" onclick="navigate('checkout')">
+                            <i class="bi bi-cart-plus me-2"></i>Add to Cart
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- =======================
+             DETAILS PAGE (6 Cards)
+             ======================= -->
+        <section id="detail" class="page-section">
+            <div class="text-center mb-5">
+                <h2 class="display-6 fw-bold">System Features</h2>
+                <p class="text-muted">Everything you need to build scalable, beautiful applications.</p>
+            </div>
+            <div class="row g-4">
+                <!-- Card 1 -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="glass-panel feature-card p-4">
+                        <div class="icon-box"><i class="bi bi-lightning-charge-fill"></i></div>
+                        <h5 class="fw-bold">Lightning Fast</h5>
+                        <p class="text-muted small mb-0">Optimized rendering and asset delivery for instant load times
+                            across all devices globally.</p>
+                    </div>
+                </div>
+                <!-- Card 2 -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="glass-panel feature-card p-4">
+                        <div class="icon-box" style="background: rgba(236,72,153,0.2); color: #ec4899;"><i
+                                class="bi bi-shield-lock-fill"></i></div>
+                        <h5 class="fw-bold">Secure Core</h5>
+                        <p class="text-muted small mb-0">Military-grade encryption for all user data transmission and
+                            at-rest storage on our servers.</p>
+                    </div>
+                </div>
+                <!-- Card 3 -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="glass-panel feature-card p-4">
+                        <div class="icon-box" style="background: rgba(16,185,129,0.2); color: #10b981;"><i
+                                class="bi bi-cloud-arrow-up-fill"></i></div>
+                        <h5 class="fw-bold">Cloud Sync</h5>
+                        <p class="text-muted small mb-0">Automatic synchronization of user states across mobile,
+                            desktop, and web applications realtime.</p>
+                    </div>
+                </div>
+                <!-- Card 4 -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="glass-panel feature-card p-4">
+                        <div class="icon-box" style="background: rgba(245,158,11,0.2); color: #f59e0b;"><i
+                                class="bi bi-puzzle-fill"></i></div>
+                        <h5 class="fw-bold">Modular Parts</h5>
+                        <p class="text-muted small mb-0">Easily swap out UI components with our highly componentized
+                            architecture using Bootstrap.</p>
+                    </div>
+                </div>
+                <!-- Card 5 -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="glass-panel feature-card p-4">
+                        <div class="icon-box" style="background: rgba(99,102,241,0.2); color: #6366f1;"><i
+                                class="bi bi-graph-up-arrow"></i></div>
+                        <h5 class="fw-bold">Analytics Hub</h5>
+                        <p class="text-muted small mb-0">Built-in tracking and visualization charts without needing
+                            third-party script integrations.</p>
+                    </div>
+                </div>
+                <!-- Card 6 -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="glass-panel feature-card p-4">
+                        <div class="icon-box" style="background: rgba(239,68,68,0.2); color: #ef4444;"><i
+                                class="bi bi-headset"></i></div>
+                        <h5 class="fw-bold">24/7 Support</h5>
+                        <p class="text-muted small mb-0">Access to our premium developer support tier, ready to assist
+                            your team around the clock.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- =======================
+             CHECKOUT PAGE
+             ======================= -->
+        <section id="checkout" class="page-section">
+            <div class="row g-5">
+                <div class="col-lg-8">
+                    <div class="glass-panel p-4 p-md-5">
+                        <h3 class="fw-bold mb-4">Billing Details</h3>
+                        <form>
+                            <div class="row g-3">
+                                <div class="col-sm-6">
+                                    <label class="form-label text-muted">First Name</label>
+                                    <input type="text" class="form-control" required>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label class="form-label text-muted">Last Name</label>
+                                    <input type="text" class="form-control" required>
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label text-muted">Email</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+                                        <input type="email" class="form-control" placeholder="you@example.com" required>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label text-muted">Address</label>
+                                    <input type="text" class="form-control" placeholder="1234 Main St" required>
+                                </div>
+                                <div class="col-md-5">
+                                    <label class="form-label text-muted">Country</label>
+                                    <select class="form-select" required>
+                                        <option value="">Choose...</option>
+                                        <option>United States</option>
+                                        <option>United Kingdom</option>
+                                        <option>Canada</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label text-muted">State</label>
+                                    <select class="form-select" required>
+                                        <option value="">Choose...</option>
+                                        <option>California</option>
+                                        <option>New York</option>
+                                        <option>Texas</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="form-label text-muted">Zip</label>
+                                    <input type="text" class="form-control" required>
+                                </div>
+                            </div>
+
+                            <hr class="my-4 border-secondary">
+
+                            <h4 class="fw-bold mb-3">Payment</h4>
+                            <div class="my-3">
+                                <div class="form-check">
+                                    <input id="credit" name="paymentMethod" type="radio" class="form-check-input"
+                                        checked required>
+                                    <label class="form-check-label" for="credit">Credit card</label>
+                                </div>
+                                <div class="form-check">
+                                    <input id="paypal" name="paymentMethod" type="radio" class="form-check-input"
+                                        required>
+                                    <label class="form-check-label" for="paypal">PayPal</label>
+                                </div>
+                            </div>
+
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label class="form-label text-muted">Name on card</label>
+                                    <input type="text" class="form-control" required>
+                                    <small class="text-secondary">Full name as displayed on card</small>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label text-muted">Credit card number</label>
+                                    <input type="text" class="form-control" required>
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="form-label text-muted">Expiration</label>
+                                    <input type="text" class="form-control" required>
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="form-label text-muted">CVV</label>
+                                    <input type="text" class="form-control" required>
+                                </div>
+                            </div>
+
+                            <hr class="my-4 border-secondary">
+                            <button class="btn btn-gradient w-100 btn-lg rounded-3" type="button"
+                                onclick="alert('Checkout Complete!')">Continue to Checkout</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="glass-panel p-4 sticky-top" style="top: 100px;">
+                        <h4 class="d-flex justify-content-between align-items-center mb-3">
+                            <span class="text-primary fw-bold">Your cart</span>
+                            <span class="badge bg-primary rounded-pill">3</span>
+                        </h4>
+                        <ul class="list-group list-group-flush mb-3 rounded-3" style="background: rgba(15,23,42,0.5);">
+                            <li
+                                class="list-group-item d-flex justify-content-between lh-sm bg-transparent border-secondary text-light">
+                                <div>
+                                    <h6 class="my-0">Nexus Core Processor</h6>
+                                    <small class="text-muted">Brief description</small>
+                                </div>
+                                <span class="text-muted">$499</span>
+                            </li>
+                            <li
+                                class="list-group-item d-flex justify-content-between lh-sm bg-transparent border-secondary text-light">
+                                <div>
+                                    <h6 class="my-0">Extended Warranty</h6>
+                                    <small class="text-muted">2 Years</small>
+                                </div>
+                                <span class="text-muted">$50</span>
+                            </li>
+                            <li
+                                class="list-group-item d-flex justify-content-between bg-transparent border-secondary text-success">
+                                <div class="text-success">
+                                    <h6 class="my-0">Promo code</h6>
+                                    <small>NEXUS2026</small>
+                                </div>
+                                <span class="text-success">-$20</span>
+                            </li>
+                            <li
+                                class="list-group-item d-flex justify-content-between bg-transparent border-0 text-light fw-bold">
+                                <span>Total (USD)</span>
+                                <strong>$529</strong>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- =======================
+             LOGIN PAGE (UI Only)
+             ======================= -->
+        <section id="login" class="page-section">
+            <div class="row justify-content-center">
+                <div class="col-md-8 col-lg-5">
+                    <div class="glass-panel p-4 p-md-5">
+                        <div class="text-center mb-4">
+                            <i class="bi bi-hexagon-fill text-primary" style="font-size: 3rem;"></i>
+                            <h3 class="fw-bold mt-2">Welcome Back</h3>
+                            <p class="text-muted">Sign in to your Nexus account to continue.</p>
+                        </div>
+
+                        <form>
+                            <div class="mb-3">
+                                <label class="form-label text-muted">Email address</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="bi bi-person"></i></span>
+                                    <input type="email" class="form-control" placeholder="name@example.com">
+                                </div>
+                            </div>
+                            <div class="mb-4">
+                                <div class="d-flex justify-content-between">
+                                    <label class="form-label text-muted">Password</label>
+                                    <a href="#" class="text-primary text-decoration-none small">Forgot password?</a>
+                                </div>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="bi bi-lock"></i></span>
+                                    <input type="password" class="form-control" placeholder="••••••••">
+                                </div>
+                            </div>
+                            <div class="mb-4 form-check">
+                                <input type="checkbox" class="form-check-input" id="rememberMe">
+                                <label class="form-check-label text-muted" for="rememberMe">Remember me</label>
+                            </div>
+                            <button type="button" class="btn btn-gradient w-100 py-2 mb-3 rounded-pill"
+                                onclick="navigate('home')">Sign In</button>
+
+                            <div class="text-center">
+                                <span class="text-muted">Don't have an account?</span>
+                                <a href="#" class="text-primary text-decoration-none ms-1">Create one</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Navigation Script -->
+    <script>
+        function navigate(pageId) {
+            // Hide all sections
+            document.querySelectorAll('.page-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            // Show target section
+            document.getElementById(pageId).classList.add('active');
+
+            // Update active state on nav links
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('data-target') === pageId) {
+                    link.classList.add('active');
+                }
+            });
+
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+    </script>
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
